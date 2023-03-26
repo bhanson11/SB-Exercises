@@ -17,7 +17,7 @@ const findMin = (...args) => Math.min(...args)
 const mergeObjects = (obj1, obj2) => ({...obj1, ...obj2})
 
 //Write a function called doubleAndReturnArgs which accepts an array and a variable number of arguments. The function should return a new array with the original array values and all of additional arguments doubled.
-const doubleAndReturnArgs = (arr, (...args)) => [...arr, ...args.map(val => val * 2)]
+const doubleAndReturnArgs = (arr, ...args) => [...arr, ...args.map(val => val * 2)]
 
 /** remove a random element in the items array
 and return a new array without that item. */
@@ -71,7 +71,7 @@ function combine(obj1, obj2) {
 
 }
 
-const combine = (obj1, obj2) {
+const combine = (obj1, obj2) => {
     return {...obj1, ...obj2};
 }
 
