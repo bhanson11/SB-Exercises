@@ -37,4 +37,3 @@ function vowelCount(str){
         }
         }
     } return vowelMap;
-}
