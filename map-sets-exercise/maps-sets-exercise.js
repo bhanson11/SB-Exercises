@@ -5,7 +5,7 @@ new Set([1,1,2,2,3,4]) // [1,2,3,4]
 [...new Set("referee")].join("") // "ref"
 
 //Quick Question #3 - what does the Map m look like after running the following code? 
-let m = new Map();
+let m = new Map(); 
 m.set([1,2,3], true);
 m.set([1,2,3], false);
 
