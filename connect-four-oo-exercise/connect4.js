@@ -9,9 +9,7 @@ class Game {
   constructor(width = 7, height = 6, player1, player2) {
     this.width = width;
     this.height = height;
-    this.board = [];
     this.players = [player1, player2];
-    // this.player2 = player2;
     this.currPlayer = player1;
     this.makeBoard();
     this.makeHtmlBoard();
@@ -19,6 +17,7 @@ class Game {
   }
 
   makeBoard() {
+    this.board = [];
     for (let y = 0; y < this.height; y++) {
       this.board.push(Array.from({ length: this.width }));
     }
@@ -26,12 +25,12 @@ class Game {
 
   makeHtmlBoard() {
     const board = document.getElementById('board');
-    
+    board.innerHTML = ''; //
     // make column tops (clickable area for adding a piece to that column)
     const top = document.createElement('tr');
     top.setAttribute('id', 'column-top');
 
-    this.handleGameClick = this.handleClick.bind(this); //what??
+    this.handleGameClick = this.handleClick.bind(this); 
     
     top.addEventListener('click', this.handleGameClick);
   
@@ -112,18 +111,18 @@ class Game {
     }
       
     // switch players
-    currPlayer = currPlayer === this.player1 ? this.player2 : this.player1;
+    this.currPlayer = this.currPlayer === this.player1 ? this.player2 : this.player1;
   }
   
   /** checkForWin: check board cell-by-cell for "does a win start here?" */
   
   checkForWin() {
-    function _win(cells) {
+    const _win = cells =>
       // Check four cells to see if they're all color of current player
       //  - cells: list of four (y, x) cells
       //  - returns true if all are legal coordinates & all match currPlayer
   
-      return cells.every(
+      cells.every(
         ([y, x]) =>
           y >= 0 &&
           y < this.height &&
@@ -131,8 +130,7 @@ class Game {
           x < this.width &&
           this.board[y][x] === this.currPlayer
       );
-    }
-  
+    
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
         // get "check list" of 4 cells (starting here) for each of the different

@@ -15,6 +15,14 @@
   border-radius: 50%;
 }
 
+.piece.player1 {
+  background-color: red;
+}
+
+.piece.player2 {
+  background-color: blue;
+}
+
 /* column-top is table row of clickable areas for each column */
 
 #column-top td {
