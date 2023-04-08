@@ -1,0 +1,26 @@
+How The Web Works Exercise 
+- What is HTTP? 
+Hyper text transfer protocol, which is how we receive data or send data to a server many times on user sides just to receive a web page 
+- What is a URL? 
+Uniform Resource Locator - the address to get to some internet site or resource 
+- What is DNS? 
+Domain Name System - it translates google.com to a bunch of numbers for the IP address of that internet resource. So we can use words and things that are easier to remember and it will translate it to get us to the IP address we want 
+- What is a query string?
+what you have you you search in a resource. It adds ?q= or something like that after the question mark and then adds user input values
+- List two HTTP verbs and their use cases. 
+GET - get or receive data from server - open a webpage, etc
+POST - send data to change the server (make changes so like make an account on a website)
+- What is an HTTP request? 
+a request through HTTP to a server - like to receive HTML for a webpage 
+- What is an HTTP response? 
+a fulfillment of that request - the server sending that webpage and HTML, CSS, JS, whatever code so you can see the webpage through your browser
+- What is an HTTP header? Give a couple of examples of request and response headers you have seen.
+Headers give additional info about an HTTP request and/or response. 
+request headers have things like host, accept, cache control
+response headers have things like content type, when something was last modified
+- What happens when you type a URL in a browser?
+Your browser changes the URL name into an IP address through DNS; 
+Then it makes the request to that IP address providing some header information about browser, cache and cookies, etc;
+Then the server sends a response back with the HTML, CSS, etc (technically HTTP header will say 200 code for successful or 300 for cached already or 400 or 500 errors if a problem);
+Then the DOM is created in your browser from the HTML sent, then gets images, styling from CSS, anything else from JavaScript or other code;
+Then request made for each part and response received from server for each of those requests. Kinda nuts!
