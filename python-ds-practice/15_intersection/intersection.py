@@ -14,7 +14,7 @@ def intersection(l1, l2):
         []
     """
 
-    #intersect = l1 & l2
+    #intersect = l1 & l2 -- & doesn't work for lists in Python
 
     intersect = [item for item in l1 if item in l2]
 
