@@ -12,3 +12,11 @@ def multiply_even_numbers(nums):
         >>> multiply_even_numbers([1, 3, 5])
         1
     """
+
+    default = 1
+    
+    for num in nums: #for each number in the nums array
+        if num % 2 == 0: 
+            default = default * num
+    
+    return default 
