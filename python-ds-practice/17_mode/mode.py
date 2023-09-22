@@ -11,3 +11,14 @@ def mode(nums):
         >>> mode([2, 2, 3, 3, 2])
         2
     """
+
+    counts_per_letter = {}
+
+    for num in nums: 
+        counts_per_letter[num] = counts_per_letter.get(num, 0) + 1
+
+    max_count_num = max(counts_per_letter.values())
+
+    for (num, freq) in counts_per_letter.items():
+        if freq == max_count_num: 
+            return num
