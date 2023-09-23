@@ -1,5 +1,5 @@
 def remove_every_other(lst):
-    """Return a new list of other item.
+    """Return a new list of every other item.
 
         >>> lst = [1, 2, 3, 4, 5]
 
@@ -11,3 +11,5 @@ def remove_every_other(lst):
         >>> lst
         [1, 2, 3, 4, 5]
     """
+
+    return lst[::2]
