@@ -21,3 +21,17 @@ def sum_pairs(nums, goal):
         >>> sum_pairs([11, 20, 4, 2, 1, 5], 100)
         ()
     """
+
+    already_scanned = set()
+
+    for i in nums:
+        difference = goal - i
+
+        if difference in already_scanned:
+            return (difference, i)
+        
+        already_scanned.add(i)
+
+    return ()
+
+# this is using the Two Pairs or Sliding Window approach to efficiently find the pair 
