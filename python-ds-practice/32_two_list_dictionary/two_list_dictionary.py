@@ -15,3 +15,10 @@ def two_list_dictionary(keys, values):
         >>> two_list_dictionary(['a', 'b', 'c'], [1, 2, 3, 4])
         {'a': 1, 'b': 2, 'c': 3}
    """
+    
+    output = {}
+
+    for idx, val in enumerate(keys): #enumerate function iterates over the keys list starting at idx 0 as default - so we are making keys our index and values our value
+        output[val] = values[idx] if idx < len(values) else None
+
+    return output
