@@ -29,3 +29,19 @@ def is_odd_string(word):
     """
 
     # Hint: you may find the ord() function useful here
+
+    char_position_sum = 0 
+
+    for char in word:
+        char_position = ord(char.lower()) - ord('a') + 1
+        char_position_sum += char_position
+
+    return char_position_sum % 2 != 0
+
+##OR 
+
+    # DIFF = ord("a") - 1
+
+    # total = sum((ord(c) - DIFF) for c in word.lower())
+
+    # return total % 2 == 1
