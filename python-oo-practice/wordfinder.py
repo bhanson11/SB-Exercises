@@ -2,4 +2,10 @@
 
 
 class WordFinder:
-    ...
+    def __init__(self, file_path):
+        dict_file = open(file_path)
+        self.words = self.parse(dict_file)
+        print(f"{len(self.words)} words read")
+    
+    def parse(self, dict_file):
+        return [w.strip() for w in dict_file]
