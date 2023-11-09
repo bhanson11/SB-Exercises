@@ -17,7 +17,7 @@ def ask_prompts():
     """Generate and show form to ask words."""
     prompts = story.prompts 
         # (from stories)
-    return render_template("questions.html", prompts=prompts)
+    return render_template("prompts.html", prompts=prompts)
 
 @app.route("/story")
 def show_story():
