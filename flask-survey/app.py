@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 from surveys import satisfaction_survey as survey
 
-RESPONSES = []
+RESPONSES = "responses"
 
 app = Flask(__name__)
 
@@ -26,3 +26,16 @@ def start_survey():
     session[RESPONSES] = []
     return redirect("/questions/0")
 
+@app.route("/questions/<int:qid>")
+def show_question(qid):
+    """Display current question"""
+    responses = session.get(RESPONSES)
+
+    if (responses is None):
+        return redirect("/")
+    if (len(responses) == len(survey.questions)):
+        #all questions answered
+        return redirect("/complete")
+    
+    question = survey.questions[qid]
+    return render_template("question.html", question_num=qid, question=question)
