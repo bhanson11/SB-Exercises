@@ -11,7 +11,7 @@ app.debug = True
 
 # set a 'SECRET_KEY' to enable the Flask session cookies
 app.config['SECRET_KEY'] = 'secret_key!'
-# app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 toolbar = DebugToolbarExtension(app)
 
@@ -39,3 +39,6 @@ def show_question(qid):
     
     question = survey.questions[qid]
     return render_template("question.html", question_num=qid, question=question)
+
+# @app.route("/answer", methods=["POST"])
+# def handle_question():
