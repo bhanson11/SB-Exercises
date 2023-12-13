@@ -6,6 +6,19 @@
     <title>Boggle</title>
 </head>
 <body>
-    
+    <h1>Welcome to Boggle!!</h1>
+    <section id="boggle">
+        <table class="board">
+            <tbody>
+                {% for row in board %}
+                <tr>
+                    {% for cell in row %}
+                    <td>{{ cell }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
 </body>
 </html>
