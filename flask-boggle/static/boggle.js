@@ -1,7 +1,22 @@
-async function submitWord() {
+// async function submitWord() {
+//     console.log('Submitting word...');
+//     try {
+//         const word = $("#wordInput").val();
+//         const response = await axios.post('/submit-word', { word: word });
+
+//         // Handle the JSON response from the server
+//         const result = response.data.result;
+//         displayResultMessage(result);
+//     } catch (error) {
+//         console.error(error);
+//     }
+// }
+async function submitWord(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+
     try {
         const word = $("#wordInput").val();
-        const response = await axios.post('/submit-word', { word: word });
+        const response = await axios.post('/submit-word', { word: word }, { headers: { 'Content-Type': 'application/json' } });
 
         // Handle the JSON response from the server
         const result = response.data.result;
@@ -10,6 +25,11 @@ async function submitWord() {
         console.error(error);
     }
 }
+
+$(document).ready(function () {
+    $(".submit-word").submit(submitWord); // Attach the submitWord function to the form submit event
+});
+
 
 function displayResultMessage(result) {
     // Update the UI to display the result message
@@ -24,7 +44,7 @@ function displayResultMessage(result) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    $("#button").click(function () {
+    $("#submitButton").click(function () {
         submitWord();
     });
 });

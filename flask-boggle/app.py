@@ -14,13 +14,22 @@ def home():
 
     return render_template("index.html", board=board)
 
-@app.route("/submit-word")
+# @app.route("/submit-word", methods=["POST"])
+# def submit_word():
+#     print('Handling POST request...')
+#     word = request.args["word"]
+#     board = session["board"]
+#     response = boggle_game.check_valid_word(board, word)
+
+#     return jsonify([{'result': response}])
+@app.route("/submit-word", methods=["POST"])
 def submit_word():
-    word = request.args["word"]
-    board = session["board"]
+    word = request.json.get("word")  # Use get to avoid KeyError
+    board = session.get("board", [])
     response = boggle_game.check_valid_word(board, word)
 
-    return jsonify([{'result': response}])
+    return jsonify(result=response)
+
 
 @app.route("/post-score", methods=["POST"])
 def post_score():

@@ -30,9 +30,9 @@
             Seconds Left: <b class="timer"></b>
           </p>
 
-        <form method="POST" class="submit-word">
-            <input type="text" name="word" class="word">
-            <button>Submit</button>
+        <form method="POST" action="/submit-word" class="submit-word">
+            <input type="text" name="word" class="word" id="wordInput">
+            <button type="submit" id="submitButton">Submit</button>
         </form>
 
         <p class="message">
