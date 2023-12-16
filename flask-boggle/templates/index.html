@@ -20,12 +20,32 @@
             </tbody>
         </table>
 
-        <form method="post" class="submit-word">
+        <p>High Score: 
+            <b>{{ highscore }}</b> 
+            in {{ num_plays }} plays
+          </p>
+    
+          <p>
+            Score: <b class="score">0</b>
+            Seconds Left: <b class="timer"></b>
+          </p>
+
+        <form method="POST" class="submit-word">
             <input type="text" name="word" class="word">
-            <button>submit</button>
+            <button>Submit</button>
         </form>
+
+        <p class="message">
+            <!-- JS messages -->
+        </p>
+
+        <ul class="words">
+            <!-- JS to put list of words here as they score -->
+        </ul>
     </section>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/static/boggle.js"></script>
+    <script src="http://unpkg.com/jquery"></script>
 </body>
 </html>

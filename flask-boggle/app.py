@@ -14,12 +14,23 @@ def home():
 
     return render_template("index.html", board=board)
 
-@app.route("/check-word-validity")
-def check_word():
+@app.route("/submit-word")
+def submit_word():
     word = request.args["word"]
     board = session["board"]
     response = boggle_game.check_valid_word(board, word)
 
     return jsonify([{'result': response}])
 
-    
+@app.route("/post-score", methods=["POST"])
+def post_score():
+    """Receive score, update num_plays, update high score if appropriate."""
+
+    score = request.json["score"]
+    highscore = session.get("highscore", 0)
+    num_plays = session.get("num_plays", 0)
+
+    session['num_plays'] = num_plays + 1
+    session['highscore'] = max(score, highscore)
+
+    return jsonify(brokeRecord=score > highscore)
