@@ -1,22 +1,11 @@
-// async function submitWord() {
-//     console.log('Submitting word...');
-//     try {
-//         const word = $("#wordInput").val();
-//         const response = await axios.post('/submit-word', { word: word });
-
-//         // Handle the JSON response from the server
-//         const result = response.data.result;
-//         displayResultMessage(result);
-//     } catch (error) {
-//         console.error(error);
-//     }
-// }
-async function submitWord(event) {
-    event.preventDefault(); // Prevent the default form submission behavior
-
+async function submitWord() {
+    console.log('Submitting word...');
     try {
         const word = $("#wordInput").val();
-        const response = await axios.post('/submit-word', { word: word }, { headers: { 'Content-Type': 'application/json' } });
+        console.log("Word:", word);
+
+        const response = await axios.post('/submit-word', { word: word });
+        console.log("Response:", response.data);
 
         // Handle the JSON response from the server
         const result = response.data.result;
@@ -26,6 +15,21 @@ async function submitWord(event) {
     }
 }
 
+// async function submitWord(event) {
+//     event.preventDefault(); // Prevent the default form submission behavior
+
+//     try {
+//         const word = $("#wordInput").val();
+//         const response = await axios.post('/submit-word', { word: word }, { headers: { 'Content-Type': 'application/json' } });
+
+//         // Handle the JSON response from the server
+//         const result = response.data.result;
+//         displayResultMessage(result);
+//     } catch (error) {
+//         console.error(error);
+//     }
+// }
+
 $(document).ready(function () {
     $(".submit-word").submit(submitWord); // Attach the submitWord function to the form submit event
 });
@@ -33,7 +37,7 @@ $(document).ready(function () {
 
 function displayResultMessage(result) {
     // Update the UI to display the result message
-    const resultContainer = $("#resultContainer");
+    const resultContainer = $(".message");
     if (result === 'ok') {
         resultContainer.text('The word is valid and exists on the board!');
     } else if (result === 'not-on-board') {
@@ -44,10 +48,12 @@ function displayResultMessage(result) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    $("#submitButton").click(function () {
+    $("#submitButton").click(function (evt) {
+        evt.preventDefault();
         submitWord();
     });
 });
+
 
 // async function submitWord(evt) {
 //     evt.preventDefault();
