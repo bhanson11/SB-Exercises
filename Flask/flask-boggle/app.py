@@ -18,28 +18,6 @@ def home():
 
     return render_template("index.html", board=board, score=session['score'])
 
-# @app.route("/submit-word", methods=["POST"])
-# def submit_word():
-
-#     """Submit word to check if it is a valid word and if it is on the game board"""
-    
-#     word = request.json.get("word")  # Use get to avoid KeyError
-#     board = session.get("board", [])
-    
-#     response = boggle_game.check_valid_word(board, word)
-
-#     session.setdefault('guessed_words', set())
-
-#     # Include the guessed words only if the word is valid and not already guessed
-#     if response == 'ok' and word not in session['guessed_words']:
-#         session['guessed_words'].add(word)
-#         session.modified = True
-
-#     print('Session:', session)
-#     print('Guessed Words:', session['guessed_words']) #added for debugging
-
-#     # return jsonify(result=response, score=session['score'], guessed_words=session['guessed_words'])
-#     return jsonify(result=response, score=session['score'], guessed_words=list(session['guessed_words']))
 @app.route("/submit-word", methods=["POST"])
 def submit_word():
     """Submit word to check if it is a valid word and if it is on the game board"""
