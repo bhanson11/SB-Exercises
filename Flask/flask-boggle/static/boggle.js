@@ -9,15 +9,16 @@ async function submitWord() {
 
         // Handle the JSON response from the server
         const result = response.data.result;
+        const score = response.data.score; 
+        const guessedWords = response.data.guessed_words;  // Explicitly access guessed_words field
+
         displayResultMessage(result);
+        updateScore(score);
+        displayGuessedWords(guessedWords);  // Pass guessedWords to the function
     } catch (error) {
         console.error(error);
     }
 }
-
-$(document).ready(function () {
-    $(".submit-word").submit(submitWord); // Attach the submitWord function to the form submit event
-});
 
 
 function displayResultMessage(result) {
@@ -31,6 +32,32 @@ function displayResultMessage(result) {
         resultContainer.text('The word is not valid.');
     }
 }
+
+function updateScore(score) {
+    //Update UI to display current score
+    const scoreContainer = $(".score");
+    scoreContainer.text(score);
+}
+
+function displayGuessedWords(guessedWords) {
+    console.log('Guessed Words:', guessedWords);
+
+    // Update UI to display list of guessed words
+    const wordsContainer = $(".words");
+    wordsContainer.empty();
+
+    if (guessedWords) {
+        guessedWords.forEach(word => {
+            wordsContainer.append(`<li>${word}</li>`);
+        });
+    } else {
+        console.error('Guessed words is not an array or is undefined:', guessedWords);
+    }
+}
+
+$(document).ready(function () {
+    $(".submit-word").submit(submitWord); // Attach the submitWord function to the form submit event
+});
 
 document.addEventListener("DOMContentLoaded", function () {
     $("#submitButton").click(function (evt) {

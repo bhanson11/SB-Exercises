@@ -26,7 +26,7 @@
           </p>
     
           <p>
-            Score: <b class="score">0</b>
+            Score: <b class="score">{{ score }}</b>
             Seconds Left: <b class="timer"></b>
           </p>
 
@@ -41,6 +41,9 @@
 
         <ul class="words">
             <!-- JS to put list of words here as they score -->
+            {% for guessed_word in guessed_words %}
+                <li> {{ guessed_word }}</li>
+            {% endfor %}
         </ul>
     </section>
 
