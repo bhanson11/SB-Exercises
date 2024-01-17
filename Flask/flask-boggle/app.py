@@ -32,6 +32,7 @@ def submit_word():
     # Include the guessed words only if the word is valid and not already guessed
     if response == 'ok' and word not in session['guessed_words']:
         session['guessed_words'].append(word)  # Change add() to append()
+        session['score'] += len(word) # add the score of t word to the total score
         session.modified = True
 
     print('Session:', session)
