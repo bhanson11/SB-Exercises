@@ -1,4 +1,4 @@
-age = 19
+age = 17
 is_birthday = False
 
 if age >= 21:

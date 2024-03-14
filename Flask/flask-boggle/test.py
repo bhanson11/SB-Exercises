@@ -6,7 +6,6 @@ from boggle import Boggle
 
 class FlaskTests(TestCase):
 
-    # TODO -- write tests for every view function / feature!
     def setUp(self):
         """Stuff to do before every test in test.py for boggle"""
 
@@ -38,7 +37,8 @@ class FlaskTests(TestCase):
                                     ["C", "A", "T", "T", "T"],
                                     ["C", "A", "T", "T", "T"],
                                     ["C", "A", "T", "T", "T"]]
-                response = self.client.get('/submit-word?word=cat')
+                response = self.client.get('/submit-word', data={'word': 'cat'})
+                # response = self.client.get('/submit-word?word=cat')
                 print(response.data)
                 self.assertEqual(response.json['result'], 'ok')
 
@@ -49,13 +49,15 @@ class FlaskTests(TestCase):
             response = self.client.get('/')
             self.assertEqual(response.status_code, 200)
             # self.client.get('/')
-            response = self.client.get('/submit-word?word=impossible')
+            response = self.client.get('/submit-word', json={'word': 'cat'})
+            # response = self.client.get('/submit-word?word=impossible')
             self.assertEqual(response.json['result'], 'not-on-board')
 
-    def non_english_word(self):
+    def test_non_english_word(self):
         """Test if word is on the board"""
 
         with self.client:
             self.client.get('/')
             response = self.client.get('/submit-word?word=fsjdakfkldsfjdslkfjdlksf')
-            self.assertEqual(response.json['result'], 'not-word')
+            print(response.data)
+            self.assertEqual(response.json['result'], 'not-word') 
