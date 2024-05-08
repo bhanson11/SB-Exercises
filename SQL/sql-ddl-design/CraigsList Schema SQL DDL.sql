@@ -4,7 +4,7 @@
 
 CREATE TABLE "Regions" (
     "region_id" int   NOT NULL,
-    "region_name" string   NOT NULL,
+    "region_name" text   NOT NULL,
     CONSTRAINT "pk_Regions" PRIMARY KEY (
         "region_id"
      ),
@@ -15,7 +15,7 @@ CREATE TABLE "Regions" (
 
 CREATE TABLE "Users" (
     "user_id" int   NOT NULL,
-    "username" string   NOT NULL,
+    "username" text   NOT NULL,
     "preferred_region_id" int   NOT NULL,
     CONSTRAINT "pk_Users" PRIMARY KEY (
         "user_id"
@@ -27,7 +27,7 @@ CREATE TABLE "Users" (
 
 CREATE TABLE "Posts" (
     "post_id" int   NOT NULL,
-    "title" string   NOT NULL,
+    "title" text   NOT NULL,
     "text" VARCHAR(200)   NOT NULL,
     "user_id" int   NOT NULL,
     "location" text   NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE "Posts" (
 
 CREATE TABLE "Categories" (
     "category_id" int   NOT NULL,
-    "category_name" string   NOT NULL,
+    "category_name" text   NOT NULL,
     CONSTRAINT "pk_Categories" PRIMARY KEY (
         "category_id"
      ),

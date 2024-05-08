@@ -7,9 +7,9 @@
 
 CREATE TABLE "DOCTORS" (
     "doctor_id" int   NOT NULL,
-    "first_name" string   NOT NULL,
-    "last_name" string   NOT NULL,
-    "specialty" string   NOT NULL,
+    "first_name" text   NOT NULL,
+    "last_name" text   NOT NULL,
+    "specialty" text   NOT NULL,
     CONSTRAINT "pk_DOCTORS" PRIMARY KEY (
         "doctor_id"
      )
@@ -17,8 +17,10 @@ CREATE TABLE "DOCTORS" (
 
 CREATE TABLE "PATIENTS" (
     "patient_id" int   NOT NULL,
-    "first_name" string   NOT NULL,
-    "last_name" string   NOT NULL,
+    "first_name" text   NOT NULL,
+    "last_name" text   NOT NULL,
+    "birthdate" date,
+    "insurance" text,
     "diagnoses" int   NOT NULL,
     CONSTRAINT "pk_PATIENTS" PRIMARY KEY (
         "patient_id"
@@ -31,7 +33,7 @@ CREATE TABLE "VISITS" (
     "patient_id" int   NOT NULL,
     "visit_date" date   NOT NULL,
     "diagnoses" int   NOT NULL,
-    "medications_prescribed" string   NOT NULL,
+    "medications_prescribed" text   NOT NULL,
     CONSTRAINT "pk_VISITS" PRIMARY KEY (
         "visit_id"
      )
@@ -39,7 +41,7 @@ CREATE TABLE "VISITS" (
 
 CREATE TABLE "DIAGNOSES" (
     "diagnosis_id" int   NOT NULL,
-    "disease_name" string   NOT NULL,
+    "disease_name" text   NOT NULL,
     CONSTRAINT "pk_DIAGNOSES" PRIMARY KEY (
         "diagnosis_id"
      )

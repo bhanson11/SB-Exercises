@@ -3,17 +3,36 @@
 
 
 CREATE TABLE "Teams" (
-    "team_id" int   NOT NULL,
-    "team_name" string   NOT NULL,
+    "team_id" int PRIMARY KEY,
+    "team_name" text   NOT NULL,
     CONSTRAINT "pk_Teams" PRIMARY KEY (
         "team_id"
-     )
+     ),
+    "Wins" INT GENERATED ALWAYS AS (
+        SELECT COUNT(*) FROM "Matches"
+        WHERE "team1_id" = "Teams"."team_id" AND 
+        "team1_score" > "team2_score"
+        OR "team2_id" = "Teams"."team_id" AND 
+        "team2_score" > "team1_score"
+    ) STORED,
+    "Draws" INT GENERATED ALWAYS AS (
+        SELECT COUNT(*) FROM "Matches" 
+        WHERE "team1_id" = "Teams"."team_id" AND 
+        "team1_score" = "team2_score"
+           OR "team2_id" = "Teams"."team_id" AND "team2_score" = "team1_score"
+    ) STORED,
+    "Losses" INT GENERATED ALWAYS AS (
+        SELECT COUNT(*) FROM "Matches"
+        WHERE "team1_id" = "Teams"."team_id" AND "team1_score" < "team2_score"
+           OR "team2_id" = "Teams"."team_id" AND "team2_score" < "team1_score"
+    ) STORED,
+    "Points" INT GENERATED ALWAYS AS ("Wins" * 3 + "Draws") STORED
 );
 
 CREATE TABLE "Players" (
     "player_id" int   NOT NULL,
-    "first_name" string   NOT NULL,
-    "last_name" string   NOT NULL,
+    "first_name" text   NOT NULL,
+    "last_name" text   NOT NULL,
     "team_id" int   NOT NULL,
     CONSTRAINT "pk_Players" PRIMARY KEY (
         "player_id"
@@ -46,8 +65,8 @@ CREATE TABLE "Goals" (
 
 CREATE TABLE "Referees" (
     "referee_id" int   NOT NULL,
-    "first_name" string   NOT NULL,
-    "last_name" string   NOT NULL,
+    "first_name" text   NOT NULL,
+    "last_name" text   NOT NULL,
     CONSTRAINT "pk_Referees" PRIMARY KEY (
         "referee_id"
      )
@@ -89,3 +108,7 @@ REFERENCES "Players" ("player_id");
 ALTER TABLE "Goals" ADD CONSTRAINT "fk_Goals_match_id" FOREIGN KEY("match_id")
 REFERENCES "Matches" ("match_id");
 
+CREATE VIEW "TeamStandings" AS
+SELECT
+"team_id", "team_name", "Wins", "Draws", "Losses", "Points"
+FROM "Teams";
