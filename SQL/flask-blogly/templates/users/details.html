@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}User Details{% endblock %}
+
+{% block content %}
+
+<h1>{{ user.first_name }} {{ user.last_name }} USER DETAILS</h1>
+
+<button class="btn btn-sm btn-primary" formaction="/users/{{ user.id }}/edit" formmethod="GET">Edit</button>
+<button class="btn btn-sm btn-danger" formaction="/users/{{ user.id }}/delete" formmethod="POST">Delete</button>
+
+{% endblock %}

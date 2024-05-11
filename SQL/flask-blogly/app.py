@@ -17,14 +17,25 @@ debug = DebugToolbarExtension(app)
 connect_db(app)
 db.create_all()
 
+@app.route('/')
+def root():
+    """Homepage redirects to user list"""
+
+    return redirect("/users")
+
 @app.route('/users')
-def home_page():
+def make_users_list():
     """shows all users"""
-    users = User.query.all()
-    return render_template('users.html', users=users)
+    users = User.query.order_by(User.last_name, User.first_name).all()
+    return render_template('users/list.html', users=users)
+
+app.route('/users/new', methods=["GET"])
+def new_users_form():
+    """show form to add new user"""
+    return render_template('users/new.html')
 
 @app.route('/users/new', methods=["POST"])
-def add_user():
+def new_users():
     """create user"""
     new_user = User(
         first_name=request.form['first_name'],
@@ -35,4 +46,10 @@ def add_user():
     db.session.add(new_user)
     db.session.commit()
 
-    return redirect('/users')
+    return redirect(f'/users/{new_user.id}')
+
+@app.route("/users/<int:user_id>")
+def show_user(user_id):
+    """Show details about a single user"""
+    user = User.query.get_or_404(user_id)
+    return render_template("users/details.html", user=user)
