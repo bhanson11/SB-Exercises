@@ -4,9 +4,20 @@
 
 {% block content %}
 
-<h1>{{ user.first_name }} {{ user.last_name }} USER DETAILS</h1>
+<div class="row">
+    {% if user.image_url %}
+    <div>
+        <img src="{{ user.image_url }}">
+    </div>
+    {% endif %}
 
-<button class="btn btn-sm btn-primary" formaction="/users/{{ user.id }}/edit" formmethod="GET">Edit</button>
-<button class="btn btn-sm btn-danger" formaction="/users/{{ user.id }}/delete" formmethod="POST">Delete</button>
+    <div>
+        <h1>{{ user.first_name }} {{ user.last_name }}</h1>
 
+        <form>
+            <button class="btn btn-lg btn-primary" formaction="/users/{{ user.id }}/edit" formmethod="GET">Edit</button>
+            <button class="btn btn-lg btn-danger" formaction="/users/{{ user.id }}/delete" formmethod="POST">Delete</button>
+        </form>
+    </div>
+</div>
 {% endblock %}
