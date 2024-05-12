@@ -29,24 +29,42 @@ def make_users_list():
     users = User.query.order_by(User.last_name, User.first_name).all()
     return render_template('users/list.html', users=users)
 
-app.route('/users/new', methods=["GET"])
-def new_users_form():
-    """show form to add new user"""
-    return render_template('users/new.html')
+# app.route('/users/new')
+# def new_users_form():
+#     """show form to add new user"""
+#     return render_template('users/new.html')
 
-@app.route('/users/new', methods=["POST"])
+# @app.route('/users/new', methods=["GET", "POST"])
+# def new_users():
+#     """create user"""
+#     new_user = User(
+#         first_name=request.form['first_name'],
+#         last_name=request.form['last_name'],
+#         image_url=request.form['image_url'] or None
+#     )
+
+#     db.session.add(new_user)
+#     db.session.commit()
+
+#     return redirect(f'/users/{new_user.id}')
+
+@app.route('/users/new', methods=["GET", "POST"])
 def new_users():
-    """create user"""
-    new_user = User(
-        first_name=request.form['first_name'],
-        last_name=request.form['last_name'],
-        image_url=request.form['image_url'] or None
-    )
+    """Show form to add new user and handle form submission"""
+    if request.method == "POST":
+        new_user = User(
+            first_name=request.form['first_name'],
+            last_name=request.form['last_name'],
+            image_url=request.form['image_url'] or None
+        )
 
-    db.session.add(new_user)
-    db.session.commit()
+        db.session.add(new_user)
+        db.session.commit()
 
-    return redirect(f'/users/{new_user.id}')
+        return redirect(f'/users/{new_user.id}')
+    else:
+        return render_template('users/new.html')
+
 
 @app.route("/users/<int:user_id>")
 def show_user(user_id):

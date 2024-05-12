@@ -5,12 +5,24 @@
 {% block content %}
 
 <h1>Create a new user</h1>
-<form action="/users" method="POST">
-    <input type="text" name="first_name" placeholder="first name">
-    <input type="text" name="last_name" placeholder="last name">
-    <input type="text" name="image_url" placeholder="image URL or None">
+<form action="/users/new" method="POST">
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="floatingInput" name="first_name" placeholder="first name">
+    <label for="floatingInput">First Name</label>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="floatingInput" name="last_name" placeholder="last name">
+    <label for="floatingInput">Last Name</label>
+  </div>
+    
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="floatingInput" name="image_url" placeholder="image URL or None">
+    <label for="floatingInput">Image URL</label>
+  </div>
+
     <a href="user/new.html">
-      <button>Add</button>
+      <button class="btn btn-lg btn-success" type="submit">Add</button>
     </a>
 
 {% endblock %}
