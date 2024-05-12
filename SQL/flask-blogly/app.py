@@ -29,25 +29,6 @@ def make_users_list():
     users = User.query.order_by(User.last_name, User.first_name).all()
     return render_template('users/list.html', users=users)
 
-# app.route('/users/new')
-# def new_users_form():
-#     """show form to add new user"""
-#     return render_template('users/new.html')
-
-# @app.route('/users/new', methods=["GET", "POST"])
-# def new_users():
-#     """create user"""
-#     new_user = User(
-#         first_name=request.form['first_name'],
-#         last_name=request.form['last_name'],
-#         image_url=request.form['image_url'] or None
-#     )
-
-#     db.session.add(new_user)
-#     db.session.commit()
-
-#     return redirect(f'/users/{new_user.id}')
-
 @app.route('/users/new', methods=["GET", "POST"])
 def new_users():
     """Show form to add new user and handle form submission"""
@@ -71,3 +52,24 @@ def show_user(user_id):
     """Show details about a single user"""
     user = User.query.get_or_404(user_id)
     return render_template("users/details.html", user=user)
+
+@app.route("/users/<int:user_id>/edit", methods=["GET", "POST"])
+def edit_user_info(user_id):
+    """edit user details"""
+    user = User.query.get_or_404(user_id)
+    if request.method == "POST":
+        user.first_name=request.form['first_name'],
+        user.last_name=request.form['last_name'],
+        user.image_url=request.form['image_url'] or None
+        db.session.commit()
+        return redirect(f'users/{user.id}')
+    else:
+        return render_template("users/edit.html", user=user)
+    
+@app.route("/users/<int:user_id>/delete", methods=["POST"])
+def delete_user(user_id):
+    """Delete a user completely"""
+    user = User.query.get_or_404(user_id)
+    db.session.delete(user)
+    db.session.commit()
+    return redirect("/users")
