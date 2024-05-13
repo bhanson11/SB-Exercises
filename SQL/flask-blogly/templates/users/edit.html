@@ -6,7 +6,7 @@
 
 <h1>Edit User</h1>
 <br>
-<form action="/users/edit" method="POST">
+<form action="/users/{{ user.id }}/edit" method="POST">
   <div class="form-floating mb-3">
     <input type="text" class="form-control" id="floatingInput" name="first_name" value="{{ user.first_name }}">
     <label for="floatingInput">First Name</label>
@@ -23,10 +23,8 @@
   </div>
 
   <div>
-    <a href="/users" class="btn btn-lg btn-warning">Cancel</a>
-    <a href="user/{{ user.id }}.html">
-        <button class="btn btn-lg btn-success" type="submit">Save</button>
-    </a>
+    <a href="/users" class="btn btn-lg btn-outline-info">Cancel</a>
+    <button class="btn btn-lg btn-success" type="submit">Save</button>
   </div>
 
 </form>

@@ -62,9 +62,9 @@ def edit_user_info(user_id):
         user.last_name=request.form['last_name'],
         user.image_url=request.form['image_url'] or None
         db.session.commit()
-        return redirect(f'users/{user.id}')
+        return redirect(f'/users/{user.id}')
     else:
-        return render_template("users/edit.html", user=user)
+        return render_template("/users/edit.html", user=user)
     
 @app.route("/users/<int:user_id>/delete", methods=["POST"])
 def delete_user(user_id):
