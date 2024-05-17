@@ -2,7 +2,7 @@
 
 from flask import Flask, render_template, request, redirect
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User
+from models import db, connect_db, User, Post
 
 app = Flask(__name__)
 app.app_context().push()
@@ -73,3 +73,21 @@ def delete_user(user_id):
     db.session.delete(user)
     db.session.commit()
     return redirect("/users")
+
+@app.route("/users/<int:user_id>/posts/new", methods=["GET", "POST"])
+def create_new_post(user_id):
+    """handle form submission for creating a new post for a user"""
+
+    user = User.query.get_or_404(user_id)
+    if request.method == "POST":
+        new_post = Post(title=request.form['title'],
+                     content=request.form['content'],
+                     user=user)
+    
+        db.session.add(new_post)
+        db.session.commit()
+
+        return redirect(f"/users/{user_id}")
+    else:
+        return render_template("/posts/new.html", user=user)
+

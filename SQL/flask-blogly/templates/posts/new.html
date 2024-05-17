@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Create New Post{% endblock %}
+
+{% block content %}
+
+<h1>Create a new post for {{ user.first_name }} {{ user.last_name }}</h1>
+<br>
+<form action="/posts/new" method="POST">
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="floatingInput" name="title" placeholder="Title">
+    <label for="floatingInput">Title</label>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="floatingInput" name="content" placeholder="Content">
+    <label for="floatingInput">Content</label>
+  </div>
+
+  <a href="/posts" class="btn btn-lg btn-info">Cancel</a>
+    <a href="user/new.html">
+      <button class="btn btn-lg btn-success" type="submit">Add</button>
+    </a>
+</form>
+{% endblock %}
