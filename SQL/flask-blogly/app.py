@@ -103,7 +103,8 @@ def show_post(post_id):
     """Show a page for a specific post and its details"""
 
     post = Post.query.get_or_404(post_id)
-    return render_template('posts/details.html', post=post)
+    user = User.query.get_or_404(post.user_id)
+    return render_template('posts/details.html', post=post, user=user)
 
 @app.route("/posts/int:post_id>/edit")
 def edit_post(post_id):
