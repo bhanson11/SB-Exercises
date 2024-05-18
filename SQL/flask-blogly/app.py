@@ -106,9 +106,26 @@ def show_post(post_id):
     user = User.query.get_or_404(post.user_id)
     return render_template('posts/details.html', post=post, user=user)
 
-@app.route("/posts/int:post_id>/edit")
+@app.route("/posts/<int:post_id>/edit" methods=["GET", "POST"])
 def edit_post(post_id):
-    """Show for mto edit post"""
+    """Show form to edit post"""
 
     post = Post.query.get_or_404(post_id)
-    return render_template('posts/edit.html', post=post)
+    
+    if request.method == "POST":
+        post.title=request.form['title'],
+        post.content=request.form['content'],
+        
+        db.session.commit()
+        return redirect(f'/posts/')
+    else: 
+        return render_template('posts/edit.html', post=post)
+
+@app.route("/posts/<int:post_id>/delete")
+def eliminate_post(post_id):
+    """delete post"""
+
+    post = Post.query.get_or_404(post_id)
+    db.session.delete(post)
+    db.session.commit()
+    return redirect("/posts")
