@@ -6,7 +6,7 @@
 
 <h1>Create a new post for {{ user.first_name }} {{ user.last_name }}</h1>
 <br>
-<form action="/posts/new" method="POST">
+<form action="/users/{{ user.id }}/posts/new" method="POST">
   <div class="form-floating mb-3">
     <input type="text" class="form-control" id="floatingInput" name="title" placeholder="Title">
     <label for="floatingInput">Title</label>
@@ -18,8 +18,8 @@
   </div>
 
   <a href="/posts" class="btn btn-lg btn-info">Cancel</a>
-    <a href="user/new.html">
+    <a href="user/post/new.html">
       <button class="btn btn-lg btn-success" type="submit">Add</button>
     </a>
-</form>
+
 {% endblock %}

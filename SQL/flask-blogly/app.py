@@ -23,6 +23,8 @@ def root():
 
     return redirect("/users")
 
+###########################USERS ROUTES
+
 @app.route('/users')
 def make_users_list():
     """shows all users"""
@@ -61,6 +63,7 @@ def edit_user_info(user_id):
         user.first_name=request.form['first_name'],
         user.last_name=request.form['last_name'],
         user.image_url=request.form['image_url'] or None
+        
         db.session.commit()
         return redirect(f'/users/{user.id}')
     else:
@@ -74,20 +77,23 @@ def delete_user(user_id):
     db.session.commit()
     return redirect("/users")
 
-@app.route("/users/<int:user_id>/posts/new", methods=["GET", "POST"])
-def create_new_post(user_id):
-    """handle form submission for creating a new post for a user"""
+###########################POSTS ROUTES
 
+@app.route("/users/<int:user_id>/posts/new/", methods=["GET", "POST"])
+def new_post(user_id):
+    """handle form submission for creating a new post for a user"""
     user = User.query.get_or_404(user_id)
     if request.method == "POST":
-        new_post = Post(title=request.form['title'],
-                     content=request.form['content'],
-                     user=user)
+        new_post = Post(
+            title=request.form['title'],
+            content=request.form['content'],
+            user_id=user_id
+            )
     
         db.session.add(new_post)
         db.session.commit()
 
         return redirect(f"/users/{user_id}")
+    
     else:
-        return render_template("/posts/new.html", user=user)
-
+        return render_template('/posts/new.html', user=user)
