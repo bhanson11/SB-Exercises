@@ -24,8 +24,8 @@
         <ul>
             {% for post in user.posts %}
             <li>
-                <a href="/posts/{{ post.id }}">{{ post.title }}</a>
-                <p>{{ post.datetime.datetime.now() }}</p>
+                <a href="/posts/{{ post.id }}" class="link-underline link-underline-opacity-0">{{ post.title }}</a>
+                <p>{{ post.DateTime }}</p>
             </li>
             {% endfor %}
         </ul>

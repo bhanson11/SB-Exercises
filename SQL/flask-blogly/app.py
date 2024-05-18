@@ -97,3 +97,17 @@ def new_post(user_id):
     
     else:
         return render_template('/posts/new.html', user=user)
+    
+@app.route("/posts/<int:post_id>")
+def show_post(post_id):
+    """Show a page for a specific post and its details"""
+
+    post = Post.query.get_or_404(post_id)
+    return render_template('posts/details.html', post=post)
+
+@app.route("/posts/int:post_id>/edit")
+def edit_post(post_id):
+    """Show for mto edit post"""
+
+    post = Post.query.get_or_404(post_id)
+    return render_template('posts/edit.html', post=post)
