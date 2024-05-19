@@ -106,7 +106,7 @@ def show_post(post_id):
     user = User.query.get_or_404(post.user_id)
     return render_template('posts/details.html', post=post, user=user)
 
-@app.route("/posts/<int:post_id>/edit" methods=["GET", "POST"])
+@app.route("/posts/<int:post_id>/edit", methods=["GET", "POST"])
 def edit_post(post_id):
     """Show form to edit post"""
 

@@ -6,20 +6,19 @@
 
 <h1>Edit post for {{ user.first_name }} {{ user.last_name }}</h1>
 <br>
-<form action="/posts/{{ post.id }}" method="POST">
+<form action="/posts/{{ post.id }}/edit" method="POST">
   <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="floatingInput" name="title" placeholder="Title">
+    <input type="text" class="form-control" id="floatingInput" name="title" placeholder="Title" value="{{ post.title }}">
     <label for="floatingInput">Title</label>
   </div>
 
   <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="floatingInput" name="content" placeholder="Content">
+    <input type="text" class="form-control" id="floatingInput" name="content" placeholder="Content" value="{{ post.content }}">
     <label for="floatingInput">Content</label>
   </div>
 
-  <a href="/posts" class="btn btn-lg btn-info">Cancel</a>
-    <a href="user/post/new.html">
+  <a href="/posts/{{ post. id }}" class="btn btn-lg btn-info">Cancel</a>
       <button class="btn btn-lg btn-success" type="submit">Add</button>
-    </a>
+</form> 
 
 {% endblock %}
