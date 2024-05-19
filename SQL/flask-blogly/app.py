@@ -111,21 +111,23 @@ def edit_post(post_id):
     """Show form to edit post"""
 
     post = Post.query.get_or_404(post_id)
-    
+    user = User.query.get_or_404(post.user_id)
+
     if request.method == "POST":
         post.title=request.form['title'],
         post.content=request.form['content'],
         
         db.session.commit()
-        return redirect(f'/posts/')
+        return redirect(f"/posts/{post.id}")
     else: 
-        return render_template('posts/edit.html', post=post)
+        return render_template('posts/edit.html', post=post, user=user)
 
-@app.route("/posts/<int:post_id>/delete")
+@app.route("/posts/<int:post_id>/delete", methods=["POST"])
 def eliminate_post(post_id):
     """delete post"""
 
     post = Post.query.get_or_404(post_id)
+
     db.session.delete(post)
     db.session.commit()
-    return redirect("/posts")
+    return redirect(f"/users/{post.user_id}")
