@@ -3,12 +3,13 @@
 from app import app
 from unittest import TestCase
 from models import db, User, Post
+from config import TestConfig
 
 class TestApp(TestCase): 
 
     @classmethod
     def setUpClass(cls):
-       app.config.from_object('config.Config')
+       app.config.from_object(TestConfig)
        cls.client = app.test_client()
        with app.app_context():
            db.create_all()
@@ -17,6 +18,23 @@ class TestApp(TestCase):
     def tearDownClass(cls):
        with app.app_context():
            db.drop_all()
+
+    # # from chatGPT for setup and tear down? try it
+    # def setUp(self):
+    #     with app.app_context():
+    #         db.create_all()
+    #         self.user = User(first_name="Test", last_name="User")
+    #         db.session.add(self.user)
+    #         db.session.commit()
+    #         self.post = Post(title="Test Post", content="Test Content", user_id=self.user.id)
+    #         db.session.add(self.post)
+    #         db.session.commit()
+
+    # def tearDown(self):
+    #     with app.app_context():
+    #         db.session.remove()
+    #         db.drop_all()
+    # # end of chatGPT setup and tear down
 
     def test_root_redirect(self):
         """test that root URL redirects to /users"""
@@ -32,7 +50,7 @@ class TestApp(TestCase):
             'image_url': ''
             }, follow_redirects=True)
         self.assertEqual(response.status_code, 200)
-        user = User.query.filter_by(frist_name='John').first()
+        user = User.query.filter_by(first_name='John').first()
         self.assertIsNotNone(user)
         self.assertEqual(user.last_name, 'Doe')
 
