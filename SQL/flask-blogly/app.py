@@ -2,7 +2,7 @@
 
 from flask import Flask, render_template, request, redirect
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User, Post
+from models import db, connect_db, User, Post, Tag
 
 app = Flask(__name__)
 app.app_context().push()
@@ -131,3 +131,12 @@ def eliminate_post(post_id):
     db.session.delete(post)
     db.session.commit()
     return redirect(f"/users/{post.user_id}")
+
+#############################TAGS ROUTES
+
+@app.route("/tags")
+def tags_index():
+    """ show page with all tags"""
+
+    tags = Tag.query.all()
+    return render_template('tags/index.html', tags=tags)
