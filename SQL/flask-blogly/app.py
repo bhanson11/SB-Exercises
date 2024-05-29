@@ -140,3 +140,15 @@ def tags_index():
 
     tags = Tag.query.all()
     return render_template('tags/list.html', tags=tags)
+
+@app.route("/tags/new", methods=["GET", "POST"])
+def add_tag_form():
+    """create a new tag with form"""
+    
+    posts=Post.query.all()
+
+    if request.method == "POST":
+        return
+        
+    else:
+        return render_template('tags/new.html', posts=posts)
