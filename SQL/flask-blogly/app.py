@@ -142,13 +142,30 @@ def tags_index():
     return render_template('tags/list.html', tags=tags)
 
 @app.route("/tags/new", methods=["GET", "POST"])
-def add_tag_form():
-    """create a new tag with form"""
+def new_tag():
+    """create a new tag with form - go to the form or post new tag from"""
     
     posts=Post.query.all()
 
     if request.method == "POST":
-        return
+
+        tags = Tag(
+            name=request.form['name']
+            )
+        
+        db.session.add(tags)
+        db.session.commit()
+        return redirect(f"/tags")
+
+        # post_ids = [int(num) for num in request.form.getlist("posts")]
+        # posts = Post.query.filter(Post.id.in_(post_ids)).all()
+        # new_tag = Tag(name=request.form['name'], posts=posts)
+
+        # db.session.add(new_tag)
+        # db.session.commit()
+        # flash(f"Tag '{new_tag.name}' added.")
+
+        # return redirect("/tags")
         
     else:
         return render_template('tags/new.html', posts=posts)

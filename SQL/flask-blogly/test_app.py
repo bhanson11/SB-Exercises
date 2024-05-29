@@ -14,10 +14,10 @@ class TestApp(TestCase):
        with app.app_context():
            db.create_all()
 
-    @classmethod
-    def tearDownClass(cls):
-       with app.app_context():
-           db.drop_all()
+    # @classmethod
+    # def tearDownClass(cls):
+    #    with app.app_context():
+    #        db.drop_all()
 
     # # from chatGPT for setup and tear down? try it
     # def setUp(self):
@@ -98,3 +98,5 @@ class TestApp(TestCase):
         self.assertEqual(response.status_code, 200)
         updated_post = Post.query.get(self.post.id)
         self.assertEqual(updated_post.title, 'Updated Post')
+
+        
