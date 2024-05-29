@@ -139,4 +139,4 @@ def tags_index():
     """ show page with all tags"""
 
     tags = Tag.query.all()
-    return render_template('tags/index.html', tags=tags)
+    return render_template('tags/list.html', tags=tags)
