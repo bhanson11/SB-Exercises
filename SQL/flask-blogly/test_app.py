@@ -49,6 +49,10 @@ class TestApp(TestCase):
 
     def test_delete_user(self):
         """test deleting a user from website and database"""
+        response = self.client.post(f'/users/{self.user.id}/delete', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        user = User.query.get(self.user.id)
+        self.assertIsNone(user)
 
     def test_create_post(self):
         """test creating a new post for a user"""
