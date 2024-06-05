@@ -168,17 +168,32 @@ def tags_show(tag_id):
     return render_template('tags/details.html', tag=tag)
 
 @app.route('/tags/<int:tag_id>/edit', methods=["GET", "POST"])
-def tags_edit_form(tag_id):
+def edit_tag(tag_id):
     """Show a form to edit an existing tag and handle form"""
 
+    tag = Tag.query.get_or_404(tag_id)
+    posts = Post.query.all()
+
     if request.method == "POST":
-         tag = Tag(
+        tag = Tag(
             name=request.form['name']
             )
-         
-         db.session.add(tag)
+        
+        post_ids = [int(num) for num in request.form.getlist("posts")]
+        tag.posts = Post.query.filter(Post.id.in_(post_ids)).all()
+
+        db.session.commit()
+        return redirect("/tags")
     
-    else:
-        tag = Tag.query.get_or_404(tag_id)
-    posts = Post.query.all()
-    return render_template('tags/edit.html', tag=tag, posts=posts)
+    return render_template("tags/edit.html", tag=tag, posts=posts) 
+
+@app.route('/tags/<int:tag_id>/delete', methods=["POST"])
+def tags_destroy(tag_id):
+    """Handle form submission for deleting an existing tag"""
+
+    tag = Tag.query.get_or_404(tag_id)
+    db.session.delete(tag)
+    db.session.commit()
+    flash(f"Tag '{tag.name}' deleted.")
+
+    return redirect("/tags")
