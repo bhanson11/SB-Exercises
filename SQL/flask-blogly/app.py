@@ -149,23 +149,36 @@ def new_tag():
 
     if request.method == "POST":
 
-        tags = Tag(
+        tag = Tag(
             name=request.form['name']
             )
         
-        db.session.add(tags)
+        db.session.add(tag)
         db.session.commit()
         return redirect(f"/tags")
-
-        # post_ids = [int(num) for num in request.form.getlist("posts")]
-        # posts = Post.query.filter(Post.id.in_(post_ids)).all()
-        # new_tag = Tag(name=request.form['name'], posts=posts)
-
-        # db.session.add(new_tag)
-        # db.session.commit()
-        # flash(f"Tag '{new_tag.name}' added.")
-
-        # return redirect("/tags")
         
     else:
         return render_template('tags/new.html', posts=posts)
+    
+@app.route('/tags/<int:tag_id>')
+def tags_show(tag_id):
+    """Show a page with info on individual tag"""
+
+    tag = Tag.query.get_or_404(tag_id)
+    return render_template('tags/details.html', tag=tag)
+
+@app.route('/tags/<int:tag_id>/edit', methods=["GET", "POST"])
+def tags_edit_form(tag_id):
+    """Show a form to edit an existing tag and handle form"""
+
+    if request.method == "POST":
+         tag = Tag(
+            name=request.form['name']
+            )
+         
+         db.session.add(tag)
+    
+    else:
+        tag = Tag.query.get_or_404(tag_id)
+    posts = Post.query.all()
+    return render_template('tags/edit.html', tag=tag, posts=posts)
