@@ -33,6 +33,11 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now())
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
+    @property
+    def friendly_date(self):
+        """nicer date format"""
+        return self.created_at.strftime("%a %b %-d  %Y, %-I:%M %p")
+
 class PostTag(db.Model):
     """tags on post"""
 

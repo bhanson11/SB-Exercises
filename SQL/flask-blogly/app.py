@@ -1,6 +1,6 @@
 """Blogly application."""
 
-from flask import Flask, render_template, request, redirect, flash
+from flask import Flask, render_template, request, redirect
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Post, Tag
 
@@ -19,9 +19,10 @@ db.create_all()
 
 @app.route('/')
 def root():
-    """Homepage redirects to user list"""
+    """Show recent list of posts, most-recent first."""
 
-    return redirect("/users")
+    posts = Post.query.order_by(Post.created_at.desc()).limit(5).all()
+    return render_template("posts/homepage.html", posts=posts)
 
 ###########################USERS ROUTES
 
