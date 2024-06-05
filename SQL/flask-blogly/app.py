@@ -1,6 +1,6 @@
 """Blogly application."""
 
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Post, Tag
 
@@ -180,6 +180,7 @@ def edit_tag(tag_id):
             name=request.form['name']
             )
         
+        ### question for mentor
         post_ids = [int(num) for num in request.form.getlist("posts")]
         tag.posts = Post.query.filter(Post.id.in_(post_ids)).all()
 
@@ -189,7 +190,7 @@ def edit_tag(tag_id):
     return render_template("tags/edit.html", tag=tag, posts=posts) 
 
 @app.route('/tags/<int:tag_id>/delete', methods=["POST"])
-def tags_destroy(tag_id):
+def eliminate_tag(tag_id):
     """Handle form submission for deleting an existing tag"""
 
     tag = Tag.query.get_or_404(tag_id)
