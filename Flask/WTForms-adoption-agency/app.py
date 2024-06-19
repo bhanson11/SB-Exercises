@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, Pet
 
@@ -16,3 +16,6 @@ toolbar = DebugToolbarExtension(app)
 
 ##################ROUTES
 @app.route("/")
+def show_pets():
+    pets = Pet.query.all()
+    return render_template('homepage.html', pets=pets)
