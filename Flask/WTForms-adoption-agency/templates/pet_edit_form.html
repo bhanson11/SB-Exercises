@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Pet</title>
+</head>
+<body>
+    <h1>{{ pet.name }}</h1>
+
+    {% if pet.photo_url %}
+    <img class="img-fluid" src="{{ pet.photo_url }}">
+    {% endif %}
+
+    <h2>Update</h2>
+
+    <form method="POST">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            {{ form.name.label }} {{ form.name }}<br>
+            {{ form.species.label }} {{ form.species }}<br>
+            {{ form.photo_url.label }} {{ form.photo_url }}<br>
+            {{ form.age.label }} {{ form.age }}<br>
+            {{ form.notes.label }} {{ form.notes }}<br>
+            <button type="submit">Update</button>
+        </form>
+    </form>
+</body>
+</html>
