@@ -8,6 +8,7 @@
 <body>
     <h1>Add a New Pet</h1>
     <form method="POST">
+        {{ form.hidden_tag() }}
         {{ form.name.label }} {{ form.name }}<br>
         {{ form.species.label }} {{ form.species }}<br>
         {{ form.photo_url.label }} {{ form.photo_url }}<br>
