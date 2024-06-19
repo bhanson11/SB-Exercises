@@ -84,6 +84,8 @@ def delete_user(user_id):
 def new_post(user_id):
     """handle form submission for creating a new post for a user"""
     user = User.query.get_or_404(user_id)
+    tags = Tag.query.all()
+
     if request.method == "POST":
         new_post = Post(
             title=request.form['title'],
@@ -92,6 +94,8 @@ def new_post(user_id):
             )
     
         db.session.add(new_post)
+
+        tags = Tag.query.filter(tags.id)
         db.session.commit()
 
         return redirect(f"/users/{user_id}")

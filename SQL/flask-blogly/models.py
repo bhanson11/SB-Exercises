@@ -33,6 +33,8 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now())
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
+    tags = db.relationship('Tag', secondary='post_tags', backref ='posts')
+
     @property
     def friendly_date(self):
         """nicer date format"""
@@ -45,6 +47,7 @@ class PostTag(db.Model):
 
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), primary_key=True)
     tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'), primary_key=True)
+
     
 class Tag(db.Model):
     """tags that can be added to posts"""
@@ -53,5 +56,3 @@ class Tag(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text, nullable=False, unique=True)
-
-    posts = db.relationship('Post', secondary="post_tags", backref="tags")
