@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, Pet
 from forms import AddPetForm
@@ -26,3 +26,16 @@ def show_pets():
 @app.route("/add", methods=["GET", "POST"])
 def add_pet():
     form = AddPetForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        species = form.species.data
+        photo_url = form.photo_url.data
+        age = form.age.date
+        notes = form.notes.data
+
+        new_pet = Pet(name=name, species=species, photo_url=photo_url, age=age, notes=notes, available=True)
+        db.session.add(new_pet)
+        db.session.commit()
+        
+        return redirect(url_for('show_pets'))
+    return render_template('add_pet.html', form=form)
