@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, Pet
-from forms import AddPetForm
+from forms import AddPetForm, EditPetForm
 
 app = Flask(__name__)
 app.app_context().push()
