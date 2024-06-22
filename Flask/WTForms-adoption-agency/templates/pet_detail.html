@@ -17,7 +17,8 @@
     {% endif %}
 
     <form method="POST">
-        {{ form.hidden_tag() }}
+        <!-- form.hidden_tag needed for CSRF protection  -->
+        {{ form.hidden_tag() }} 
         {{ form.photo_url.label }} {{ form.photo_url }}<br>
         {{ form.notes.label }} {{ form.notes }}<br>
         {{ form.available.label }} {{ form.available }}<br>

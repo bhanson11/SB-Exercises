@@ -15,7 +15,7 @@ class Pet(db.Model):
     available = db.Column(db.Boolean, nullable=False, default=True)
 
 def connect_db(app):
-    """Connect to database."""
+    """Connect to database. this way we don't need a separate init.py"""
     
     db.app = app
     db.init_app(app)

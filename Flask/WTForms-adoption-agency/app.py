@@ -4,7 +4,7 @@ from models import db, connect_db, Pet
 from forms import AddPetForm, EditPetForm
 
 app = Flask(__name__)
-app.app_context().push()
+app.app_context().push() #needed to push app context through to allow for live flask server
 
 app.config['SECRET_KEY'] = 'Bsecretkey'
 
@@ -24,6 +24,7 @@ def show_pets():
     return render_template('show_pets.html', pets=pets)
 
 @app.route("/add", methods=["GET", "POST"])
+# will get add pet form and then when submitted, will post that as a new pet in db
 def add_pet():
     form = AddPetForm()
     if form.validate_on_submit():
@@ -41,6 +42,7 @@ def add_pet():
     return render_template('add_pet.html', form=form)
 
 @app.route("/<int:pet_id>", methods=["GET", "POST"])
+# will get the pet detail webpage and if changes are submitted in the edit pet form, will post those changes
 def show_pet(pet_id):
     pet = Pet.query.get_or_404(pet_id)
     form = EditPetForm(obj=pet)
