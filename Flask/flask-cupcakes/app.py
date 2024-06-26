@@ -12,6 +12,9 @@ app.config['SECRET_KEY'] = "secrecy"
 
 connect_db(app)
 
+@app.route('/', methods=['GET'])
+def 
+
 @app.route('/api/cupcakes', methods=['GET'])
 def list_cupcakes():
     """Get data about all cupcakes and respond with JSON"""
