@@ -2,10 +2,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-def connect_db(app):
-    db.app = app
-    db.init_app(app)
-
 """Models for Cupcake app."""
 class Cupcake(db.Model):
     __tablename_ = 'cupcakes'
@@ -24,3 +20,7 @@ class Cupcake(db.Model):
             'rating': self.rating,
             'image': self.image
         }
+    
+def connect_db(app):
+    db.app = app
+    db.init_app(app)
