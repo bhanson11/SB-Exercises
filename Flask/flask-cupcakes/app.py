@@ -18,3 +18,9 @@ def list_cupcakes():
     all_cupcakes = [cupcake.serialize() for cupcake in Cupcake.query.all()]
     return jsonify(cupcakes=all_cupcakes)
 
+@app.route('/api/cupcakes/<int:cupcake_id>', methods=['GET'])
+def get_cupcake(cupcake_id):
+    """get data about a single cupcake and respond with JSON - raise 404 if cupcake cannot be found"""
+    cupcake = Cupcake.query.get_or_404(cupcake_id)
+    return jsonify(cupcake=cupcake.serialize())
+
