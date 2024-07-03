@@ -8,7 +8,7 @@ function generateCupcakeHTML(cupcake) {
         <button class="delete-button">X</button>
       </li>
       <img class="Cupcake-img"
-            src="${cupcake.image}"
+            src="${cupcake.image || "https://tinyurl.com/demo-cupcake"}"
             alt="(no image provided)">
     </div>
   `;
@@ -30,10 +30,10 @@ async function showListCupcakes() {
 $("#new-cupcake-form").on("submit", async function (evt) {
   evt.preventDefault();
 
-  let flavor = $("#form-flavor").val();
-  let rating = $("#form-rating").val();
-  let size = $("#form-size").val();
-  let image = $("#form-image").val();
+  let flavor = $("#flavor").val();
+  let rating = $("#rating").val();
+  let size = $("#size").val();
+  let image = $("#image").val();
 
   const newCupcakeResponse = await axios.post(`${BASE_URL}/cupcakes`, {
     flavor,

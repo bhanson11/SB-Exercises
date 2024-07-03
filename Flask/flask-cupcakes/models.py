@@ -6,7 +6,7 @@ DEFAULT_IMAGE = "https://tinyurl.com/demo-cupcake"
 
 """Models for Cupcake app."""
 class Cupcake(db.Model):
-    __tablename_ = 'cupcakes'
+    __tablename__ = 'cupcake'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     flavor = db.Column(db.String, nullable=False)

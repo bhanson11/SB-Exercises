@@ -29,6 +29,7 @@ def get_cupcake(cupcake_id):
 
 @app.route('/api/cupcakes', methods=['POST'])
 def create_cupcake():
+    print("BOOM Request JSON: ", request.json) # debugging line
     new_cupcake = Cupcake(
         flavor=request.json['flavor'],
         size=request.json['size'],
